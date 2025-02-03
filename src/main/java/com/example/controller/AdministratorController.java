@@ -100,15 +100,19 @@ public class AdministratorController {
 	 * @return ログイン後の従業員一覧画面
 	 */
 	@PostMapping("/login")
-	public String login(LoginForm form, RedirectAttributes redirectAttributes) {
-		Administrator administrator = administratorService.login(form.getMailAddress(), form.getPassword());
-		if (administrator == null) {
-			redirectAttributes.addFlashAttribute("errorMessage", "メールアドレスまたはパスワードが不正です。");
-			return "redirect:/";
-		}
-		return "redirect:/employee/showList";
-	}
+public String login(LoginForm form, RedirectAttributes redirectAttributes, HttpSession session) {
+    Administrator administrator = administratorService.login(form.getMailAddress(), form.getPassword());
 
+    if (administrator == null) {
+        redirectAttributes.addFlashAttribute("errorMessage", "メールアドレスまたはパスワードが不正です。");
+        return "redirect:/";
+    }
+
+    // ログインしたらセッションスコープに保存
+    session.setAttribute("loggedInAdministrator", administrator);
+
+    return "redirect:/employee/showList";
+}
 	/////////////////////////////////////////////////////
 	// ユースケース：ログアウトをする
 	/////////////////////////////////////////////////////

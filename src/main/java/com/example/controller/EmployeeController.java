@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.Employee;
+import com.example.form.LoginForm;
 import com.example.form.UpdateEmployeeForm;
 import com.example.service.EmployeeService;
 
@@ -39,6 +40,12 @@ public class EmployeeController {
 		return new UpdateEmployeeForm();
 	}
 
+	@ModelAttribute
+	public LoginForm setMailAddress(){
+		return new LoginForm();
+	}
+
+
 	/////////////////////////////////////////////////////
 	// ユースケース：従業員一覧を表示する
 	/////////////////////////////////////////////////////
@@ -54,6 +61,7 @@ public class EmployeeController {
 		model.addAttribute("employeeList", employeeList);
 		return "employee/list";
 	}
+
 
 	/////////////////////////////////////////////////////
 	// ユースケース：従業員詳細を表示する
