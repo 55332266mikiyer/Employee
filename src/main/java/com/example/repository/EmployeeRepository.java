@@ -57,6 +57,13 @@ public class EmployeeRepository {
 		return developmentList;
 	}
 
+	public List<Employee> findByNameContaining(String search) {
+        String sql = "SELECT * FROM employees WHERE name LIKE :search ORDER BY hire_date";
+        SqlParameterSource param = new MapSqlParameterSource().addValue("search", "%" + search + "%");
+        return template.query(sql, param, EMPLOYEE_ROW_MAPPER);
+    }
+
+
 	/**
 	 * 主キーから従業員情報を取得します.
 	 * 
@@ -73,6 +80,8 @@ public class EmployeeRepository {
 
 		return development;
 	}
+
+	
 
 	/**
 	 * 従業員情報を変更します.

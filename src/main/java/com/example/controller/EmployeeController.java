@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.domain.Employee;
 import com.example.form.LoginForm;
@@ -55,13 +56,13 @@ public class EmployeeController {
 	 * @param model モデル
 	 * @return 従業員一覧画面
 	 */
-	@GetMapping("/showList")
-	public String showList(Model model) {
-		List<Employee> employeeList = employeeService.showList();
-		model.addAttribute("employeeList", employeeList);
-		return "employee/list";
-	}
 
+	@GetMapping("/showList")
+    public String showList(@RequestParam(name = "search", required = false) String search, Model model) {
+        List<Employee> employeeList = employeeService.searchEmployees(search);
+        model.addAttribute("employeeList", employeeList);
+        return "employee/list";
+	}
 
 	/////////////////////////////////////////////////////
 	// ユースケース：従業員詳細を表示する
@@ -100,6 +101,4 @@ public class EmployeeController {
 		employeeService.update(employee);
 		return "redirect:/employee/showList";
 	}
-
-	
 }
