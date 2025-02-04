@@ -101,5 +101,5 @@ public class EmployeeController {
 		return "redirect:/employee/showList";
 	}
 
-	//ユーザー登録画面は？新規に追加するときはどうするの？
+	
 }
