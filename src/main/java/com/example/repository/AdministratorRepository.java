@@ -68,6 +68,8 @@ public class AdministratorRepository {
 		return administratorList.get(0);
 	}
 
+	
+
 	/**
 	 * 管理者情報を挿入します.
 	 * 
